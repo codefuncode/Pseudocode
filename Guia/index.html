@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+</head>
+<body>
+<pre>
+
+Guía de pseudocódigo CSE 1321
+
+El pseudocódigo es una descripción de programa informal que no contiene sintaxis de código ni consideraciones tecnológicas subyacentes.
+El pseudocódigo resume los pasos (o el flujo) de un programa, pero excluye los detalles [de implementación] subyacentes. - techopedia.com
+
+El pseudocódigo es la forma de expresar soluciones a problemas difíciles sin tener que preocuparse por la sintaxis.
+Los problemas en FYE son relativamente simples en comparación con lo que hará más adelante.
+
+Este no es un tutorial, pero proporciona la idea central del concepto y un ejemplo o dos.
+
+Nota: las sangrías hacen que esto sea MUCHO más fácil de leer.
+
+
+
+
+Keywords: MAIN, PRINT, PRINTLINE, READ, //
+
+    MAIN - el 'punto de entrada' o 'punto de inicio' del programa. Todos los programas tienen un archivo principal.
+    PRINT - el comando para imprimir algo en la pantalla
+    PRINTLINE - igual que PRINT, pero baja a la siguiente línea después de imprimir
+    READ - cómo leer desde el teclado en una variable. Consulte el Módulo 2 para ver ejemplos.
+    // - una línea de comentario que la computadora ignora. Utilizado para documentación.
+    // Tenga en cuenta que el operador '+' se puede utilizar para imprimir varias cosas
+
+ Ejemplo
+
+  // Mi primer programa
+
+  MAIN
+     PRINTLINE "Hello, World!"
+     PRINT "FYE " + " is not "
+     PRINT "so bad!"
+  END MAIN
+
+Output:
+Hello, World!
+
+
+================================================================================================
+
+Keywords: CREATE, RAND, +, -, /, *, (, ), %, ++, =, ==, [ ]
+
+    CREATE – crea una variable, que se denomina parte de la memoria para 'contener' cosas
+    CONSTANT - declara un valor que no puede cambiar
+    RAND - generar un número aleatorio
+    +, -, /, *, (, ) - operadores matemáticos estándar
+    % - módulo, el resto después de la división entera (5% 3 == 2)
+    = - el operador de asignación que mueve los datos del lado derecho a una variable del lado izquierdo
+    ++ - un operador de atajo común para incrementar una variable en 1
+    == - es igual a. Es decir, el operador para comparar si dos elementos son iguales
+    [ ] se utilizan para trabajar con matrices, pero también se pueden utilizar para establecer precedencia matemática
+
+Example #0 - creando e inicializando variables
+
+    // Programa que crea dos variables y las inicializa de diferentes formas
+
+    MAIN
+         CREATE myVariable       // Crea una variable sin inicializarla (lo que se hace más tarde)
+         CREATE yourVariable = 0 // Crea e inicializa en una línea
+         READ myVariable         // Inicialice la primera variable leyendo el valor del usuario
+
+    END MAIN
+
+Example #1 - creando variables y usando operadores
+
+    // Programa que calcula el interés de la tarjeta de crédito durante un mes
+
+    MAIN
+
+        CREATE creditCardDebt, interestThisMonth, apr
+        PRINT "Ingrese la deuda de su tarjeta de crédito: "
+        READ creditCardDebt
+        PRINT "Enter the APR of the credit card: "
+        READ apr
+        // Calcula el interés de este mes solo
+        interestThisMonth = (creditCardDebt*(apr/12))
+        PRINTLINE "Debe $ '+ interestThisMonth +' este mes solo en intereses"
+    END MAIN
+
+Example #2 - números al azar
+
+    // Programa que genera números aleatorios y los asigna a una variable
+
+    MAIN
+       CREATE myRandom
+       myRandom = RAND()        // Obtenga un número entre 0.0 y 1.0
+       myRandom = RAND (5)      // Obtenga un número entre 0.0 y 5.0
+       myRandom = RAND (3,7)    // Obtenga un número entre 3.0 y 7.0
+    END MAIN
+
+Example #3 - constantes
+
+// Programa que demuestra el uso de una constante
+
+MAIN
+
+   CREATE radius, area
+   CONSTANT PI = 3.14159267
+   PRINT "Ingrese un radio: "
+   READ radius
+   area = PI * radius * radius
+   PRINT "El área del círculo es '+ área"
+
+END MAIN
+
+
+Example #4 -Matrices 1D
+
+    // Programa que crea una matriz 1D y asigna valores
+
+    MAIN
+
+       CREATE temperatures[5], day
+       temperatures[0] = 84
+       temperatures[1] = 93
+       temperatures[2] = 82
+       temperatures[3] = 56
+       temperatures[4] = 31
+       PRINT "La temperatura del día 1 es " + temperatures[0]
+
+    END MAIN
+
+
+
+============================================================================================================
+
+
+
+
+Keywords:  SWITCH, CASE, DEFAULT, BREAK, IF, THEN, ELSE, ENDIF
+
+    SWITCH: compara el valor de una variable con las declaraciones CASE
+    CASE: se compara con la variable de la instrucción SWITCH. Si hay una coincidencia, ejecute.
+    DEFAULT: si no hay CASOS que coincidan, DEFAULT coincide
+    BREAK: por lo general, aparece después de cada declaración CASE para omitir todas las demás declaraciones CASE de la consideración.
+    IF: una estructura para probar si una determinada condición es verdadera. Si es así, ejecute un bloque de código.
+    THEN - el comienzo de un bloque de código para la instrucción IF.
+    END IF: un marcador para finalizar el bloque de código de la declaración IF.
+    ELSE: se utiliza con la instrucción IF. Esto se ejecuta si no se encontró ninguna otra coincidencia.
+
+Example #1 - SWITCH/CASE/BREAK/DEFAULT
+
+    // Programa que muestra cómo funcionan las sentencias SWITCH
+
+    MAIN
+       CREATE userInput
+       PRINT "Enter a number: "
+       READ userInput
+       SWITCH userInput
+          CASE 1: PRINT "One, "
+          CASE 3: PRINT "Three, "
+          CASE 5: PRINT "Five, "
+             BREAK
+          CASE 2: PRINT "Two, "
+          CASE 4: PRINT "Four, "
+             BREAK
+          CASE 6: PRINT "Six, "
+          DEFAULT: PRINTLINE "¡Entra en juego todo!"
+       END SWITCH
+    END MAIN
+
+Output (si ejecutamos este programa varias veces con una entrada diferente):
+
+    La entrada de 1 tiene una salida de 'Uno, Tres, Cinco'
+    La entrada de 2 tiene una salida de 'Dos, Cuatro'
+    La entrada de 3 tiene una salida de 'Tres, Cinco'
+    La entrada de 4 tiene una salida de 'Cuatro',
+    La entrada de 5 tiene una salida de 'Cinco',
+    La entrada de 6 tiene una salida de 'Seis',
+    La entrada de cualquier otro número tiene una salida de "¡Entra en juego todo!"
+
+Example #2 - IF
+
+    // Programa que muestra los conceptos básicos de las declaraciones IF
+
+    MAIN
+       CREATE firstName, lastName
+       PRINT "Enter your first name: "
+       READ firstName
+       PRINT "Enter your last name: "
+       READ lastName
+       IF (firstName == "Tim") THEN
+          PRINT ¿Hay algunos que te llaman Tim?
+       END IF
+    END MAIN
+
+Output:
+
+Esto depende de la entrada. Si el usuario ingresa el nombre 'Tim', entonces la salida es:
+
+¿Hay algunos que te llaman Tim?
+
+Si el usuario ingresa cualquier otro nombre, no hay salida.
+
+Example #3 - IF/ELSE
+
+    // Programa que muestra los conceptos básicos de las declaraciones IF / ELSE
+    // Author: Bjarne Stroustrop
+    MAIN
+       CREATE firstName, lastName
+       PRINT "Enter your first name: "
+       READ firstName
+       PRINT "Enter your last name: "
+       READ lastName
+       IF (firstName == "Tim") THEN
+          PRINT "¿Hay algunos que te llaman Tim?"
+       ELSE IF (firstName == "Bjarne") THEN
+          PRINT "¿Qué dice el zorro?"
+       ELSE
+          PRINT "¿Es este Iñigo Montoya?"
+       END IF
+    END MAIN
+
+Output
+
+Esto dependerá de la entrada. Si se ingresa Tim, se comportará de la misma manera que se comporta el Ejemplo # 2.
+Si la entrada es 'Bjarne', imprimirá '¿Qué dice el zorro?'. Alguna otra salida de entrada '¿Es este Iñigo Montoya?'
+
+
+==============================================================================================================================================
+
+
+Keywords: FOR, BY, WHILE, DO, BREAK, CONTINUE
+
+    FOR: un bucle utilizado para repetirse un número conocido de veces
+    BY: se usa con el bucle FOR para incrementar / disminuir un contador en una cantidad específica
+    WHILE: un bucle utilizado cuando puede o no saber cuántas veces se repetirá
+    DO: un bucle similar al bucle WHILE, pero debe ejecutarse al menos una vez
+    BREAK: se usa dentro de un bucle para saltar al FINAL del bucle y terminar de repetir
+    CONTINUE: se usa dentro de un bucle para pasar a la siguiente iteración del bucle
+
+    STRING: no es una palabra clave, pero las cadenas se incluyen en el Módulo 4.
+    Consulte el final de esta sección.
+
+Example #1 - El bucle FOR
+
+    // Programa que cuenta entre dos números leídos por el usuario
+
+    MAIN
+       CREATE start, end
+       PRINT 'Ingrese un número inicial'
+       READ start
+       PRINT 'Ingrese un número final'
+       READ end
+       FOR i = start TO end BY 1
+          PRINT i + ":"
+       END FOR
+    END MAIN
+
+Output
+
+Esto dependerá de la entrada. Si el usuario ingresa 3 y 7, el programa imprimirá:
+
+3:4:5:6:7:
+
+Example #2 - El bucle WHILE
+
+    // Programa que hace lo mismo que el ejemplo de bucle FOR anterior
+
+    MAIN
+       CREATE start, end, i
+       PRINT 'Ingrese un número inicial'
+       READ start
+       PRINT "Enter an ending number"
+       READ end
+       i = start
+       WHILE (i <= end)
+          PRINT i + ":"
+          i++
+       END WHILE
+    END MAIN
+
+Example #3 - El bucle DO/WHILE
+
+    // Programa que se repite hasta que el usuario escribe la palabra 'cookie'
+    // Author: James Gosling
+    MAIN
+       CREATE userInput
+       DO
+          PRINT 'Dame una galleta'
+          READ userInput
+       WHILE (userInput != "galleta")
+       END WHILE
+    END MAIN
+
+Example #4 - BREAKing out of a loop
+
+    // An extension of Example #1 that includes a break
+    // Author: Linus Torvalds
+    MAIN
+       CREATE start, end
+       PRINT 'Ingrese un número inicial'
+       READ start
+       PRINT "Enter an ending number"
+       READ end
+       FOR i = start TO end BY 2
+          IF (i == 5) THEN
+             BREAK
+          END IF
+          PRINT i + ":"
+       END FOR
+       PRINTLINE 'Fuera del bucle'
+    END MAIN
+
+Output (y tenga en cuenta que el bucle se incrementa en 2, solo por diversión)
+
+    Si el usuario ingresa 2 y 9, la salida sería '2: 4: 6: 8: Fuera del bucle'
+    Si el usuario ingresa 1 y 10, la salida sería '1: 3: Fuera del bucle'
+
+Example #5 - Usando CONTINUE ####
+
+    // Una extensión del Ejemplo # 4 que intercambia la declaración BREAK por CONTINUE
+    // Author: Margaret Hamilton
+    MAIN
+       CREATE start, end
+       PRINT "Enter a starting number"
+       READ start
+       PRINT "Enter an ending number"
+       READ end
+       FOR i = start TO end BY 2
+          IF (i == 5) THEN
+            CONTINUE
+          END IF
+       PRINT i + ":"
+       END FOR
+       PRINTLINE "Outside of loop"
+    END MAIN
+
+Output (again, note the increment by 2)
+
+If the user inputs 1 and 10, the output would be "1:3:7:9:Outside of loop"
+
+Example #6 - loops inside loop (called "nested loops")
+
+    // A program that prints out a multiplication table
+    // Author: Katherine Johnson
+    MAIN
+       FOR i = 1 TO 5
+          FOR j = 1 TO 7
+             PRINT i*j + "\t"
+          END FOR
+          PRINTLINE
+       END FOR
+    END MAIN
+
+Output (note the '\t' isn't pseudocode, but prints out a tab in almost all languages)
+
+1   2   3   4   5   6   7
+2   4   6   8   10  12  14
+3   6   9   12  15  18  21
+4   8   12  16  20  24  28
+5   10  15  20  25  30  35
+
+
+WORKING WITH STRINGS
+
+When working with strings, you often need to 1) know how long the string is - that is, how many characters are in the string, and 2) access individual characters of the string.
+
+To find the length of a string called myString and store that in a variable called numChars, you can use one of three ways (all do the same thing):
+
+    numChars = length of myString
+    numChars = length(myString)
+    numChars = myString.length
+
+For accessing individual elements, the most common way is to use brackets[ ] - which will make sense later.  However, here are two ways we recommend.  The code below puts a character of the string into a variable called myChar.
+
+    myChar = myString[0]   // access the first character
+    myChar = first character of myString
+
+
+
+
+===============================================================================================
+
+
+
+
+Keywords:  METHOD, RETURN
+
+    METHOD - a way to organize a block of code into a reusable group
+    RETURN - if the method does calculations, this is how information is passed back to whoever called the method.
+    Remember!  The computer always starts at MAIN!!
+
+Example #1: Simple method with no RETURN and no parameters
+
+    // A program that creates a method with no parameters and
+    // calls that method from main
+    // Author: Edsger Dijkstra
+
+    METHOD printMenu ()
+    BEGIN
+         PRINTLINE "Choice 1: Sushi"
+         PRINTLINE "Choice 2: Lasagna"
+         PRINTLINE "Choice 3: Hotdog"
+    END printMenu
+
+    MAIN
+         printMenu()  // this calls printMenu, which prints the options to the screen
+    END MAIN
+
+Example #2: Method that takes in two parameters and calls with different parameters
+
+    // A program that shows how to pass parameters to methods that expect them
+    // Note: we can pass literal values like "Steve" or variables that hold values and
+    // it works either way
+    // Authors: Bill and Steve
+
+    METHOD printName (parameters: first, last)
+    BEGIN
+         PRINTLINE "First name is: " + first
+         PRINTLINE "Last name is: " + last
+    END printName
+
+    MAIN
+         CREATE x, y
+         x = "Bill"
+         y = "Gates"
+         printName ("Steve", "Jobs")
+         printName (x, y)
+    END MAIN
+
+Example #3: passing parameters and using the RETURN statement
+
+    // A program that shows 1) passing parameters to a method and 2) returning a result
+    // Author: Vint Cerf
+
+    METHOD addTwoNumbers (parameters: num1, num2)
+    BEGIN
+         result = num1 + num2
+         RETURN result
+    END addTwoNumbers
+
+    MAIN
+         CREATE w, x, y, z, temp
+         w = 5
+         x = 7
+         y = -3
+         z = 10
+
+         // Important! Because the method RETURNS information, you should
+         // store it in a variable.  Here, we use "temp" to hold the result
+
+         temp = addTwoNumbers(w, x)  // w gets copied into num1, x gets copied into num2
+         print (temp)                // the number 12 prints to the screen
+         temp = addTwoNumbers (y, z) // y gets copied into num1, z gets copied into num2
+         print (temp)                // the number 7 prints on the screen
+    END MAIN
+
+
+
+=======================================================================================================================
+
+
+Keywords: CLASS, CONSTRUCTOR, NEW
+
+    CLASS - A description (or a template) of something that has 1) data (called attributes) and 2) methods that act on that data.  That is, data and methods are lumped into one thing.
+    CONSTRUCTOR - a special method in a class whose responsibility is to initialize the attributes.
+    NEW - the way to initialize a variable that is a class.  This is used in MAIN.  Using the NEW keyword calls the constructor of the class, which initializes attributes.
+    AS - specify the type of object you want to create.
+    Summary: a class is a template.  You will create variables of that class type in MAIN.  When you do that, you have to use the NEW keyword, or else the variable isn't initialized; it is dead.  An "alive" variable is called an "object", which gives us "Object-Oriented Programming". You normally build classes in the order of the examples below.
+
+Example #1 - Smallest class possible. It is empty.
+
+    CLASS Dog
+    BEGIN
+    END CLASS
+
+Note, we don't have a dog yet, just the description of one (or the beginning of one).
+
+Example #2 - Two steps to creating a variable of type "Dog"
+
+    MAIN
+         CREATE d1 AS Dog  // Step1: create a variable. d1 is currently "dead"
+         d1 = NEW Dog ( )  // Step2: bring it to life using NEW. This calls the constructor.
+    END MAIN
+
+Note: we can have as many dogs (objects) as we want!
+
+Example #3 - Adding attributes to the empty class.
+
+    // Same as example #1, but now all dogs have a name, weight and rabid status
+    CLASS Dog
+    BEGIN
+        name = "Fluffy"
+        weight = 13
+        isRabid = FALSE
+    END CLASS
+
+Note: we now have a problem!  If I create multiple dogs (d1, d2, ...) in MAIN, they'll all be named "Fluffy", weigh 13 lbs, and this is a travesty.
+
+Example #4 - Adding a constructor to the class
+
+Questions you must ask yourself before writing a constructor:
+
+    Do all dogs have the same name?  No. We must pass this as a parameter.
+    Do all dogs weigh the same?  No. We must pass this as a parameter.
+    Are all dogs born non-rabid?  Yes. We can "hard-code" this.
+
+    // Same as example #3, but we now have a constructor that initializes
+    // all three attributes (name, weight and isRabid)
+    CLASS Dog
+    BEGIN
+         name = ""
+         weight = -1
+         isRabid = FALSE
+         CONSTRUCTOR Dog (parameter: newName, newWeight)
+              name = newName
+              weight = newWeight
+              isRabid = FALSE
+         END CONSTRUCTOR
+    END CLASS
+
+    // create a few dogs, calling the constructor with different parameters
+    // note: d1's variables are independent from d2's variables
+    MAIN
+         CREATE d1, d2 AS Dog
+         d1 = NEW Dog ("Spike", 50)     // d1 weighs 50 pounds. Not rabid.
+         d2 = NEW Dog ("Fluffy", 4)     // d2 weighs 4 pounds. Not rabid.
+    END MAIN
+
+Example #6 - Accessing attributes from main (creating rabid dogs)
+
+    MAIN
+         CREATE d1, d2 AS Dog
+         d1 = NEW Dog ("Spike", 50)
+         d2 = NEW Dog ("Fluffy", 4)
+         d2.isRabid = TRUE
+         // Make d2 a rabid, 4-pound dog named Fluffy.
+    END MAIN
+
+Example #7 - Methods inside of classes
+
+    CLASS Dog
+    BEGIN
+        name = ""
+        weight = -1
+        isRabid = FALSE
+
+        CONSTRUCTOR Dog (parameter: newName, newWeight)
+            name = newName
+            weight = newWeight
+            isRabid = FALSE
+        END CONSTRUCTOR
+
+        METHOD bark()
+        BEGIN
+           IF (isRabid == FALSE) THEN
+              PRINT ("My name is " + Name)
+           ELSE
+              PRINT ("My name is " + ... code to reverse Name)
+           END IF
+        END METHOD
+    END CLASS
+
+    MAIN
+        CREATE d1, d2 AS Dog
+        d1 = NEW Dog ("Spike", 50)
+        d2 = NEW Dog ("Fluffy", 4)
+        d1.bark() // prints out "My name is Spike"
+        d2.bark() // prints out "My name is yffulF"
+    END MAIN
+
+
+
+    ===============================================================================================================
+
+
+
+
+
+
+Keywords - none, but you'll see brackets [ ] for 1D arrays and double brackets [ ][ ] for 2D arrays.
+
+An array is just a data structure that holds several items of the same type - like 50 integers.  However, beware! The first element (or "slot") starts at 0 in languages like C++, Java and C#.  So, if there are 10 elements in the array, they are indexed 0-9.
+
+General rules:
+
+    Any time you have to visit each cell of a 1D array (say, searching, finding the min/max/average), you almost always use a FOR loop
+    Any time you have to visit each cell of a 2D array, you need to have a nested FOR loop.
+    If you access only one element of an array, you do not need loops.
+    Most languages have a "length" attribute for an array that tells you how big the array is.
+
+Example #1 - Creating a 1D and 2D array
+
+    CREATE grades[50]    // Creates an array called "grades" of size 50 (elements)
+
+    CREATE matrix[5][10] // Create a 2D 5x10 array called "matrix"
+
+Example #2 - Accessing only one element of an array
+
+    grades[3] = 100      // Stores the value 100 in the 4th element of the array grades
+
+    my_grade = grades[3] // Stores the value of the 4th element in the variable my_grade
+
+    matrix[3][4] = 15    // put the value 15 into slot 3, 4 in the 2D array
+
+Example #3 - filling an array with random numbers
+
+    CREATE myArray [10]
+
+    FOR i = 0 to 9
+       myArray[i] = RAND // As i increases, fill slot i with a random number
+    END FOR
+
+Example #4 - finding the average of all elements of myArray from Example #3
+
+    CREATE sum, average
+
+    FOR i = 0 to 9
+       sum = sum + myArray[i] // Add up all numbers in the array and put them into sum
+    END FOR
+    average = sum/10
+
+Example #5 - using the length attribute to print out the array
+
+    FOR i = 0 to myArray.length
+         PRINT myArray[i]
+    END FOR
+
+Example 6 - creating a 2D array and filling it with random values
+
+    CREATE myArray [100][200]
+    FOR y = 0 to myArray.rowLength
+         FOR x = 0 to myArray.columnLength
+              // often, memory is laid out so you have to access it y, x
+              myArray[y][x] = RAND
+         END FOR
+    END FOR
+
+
+
+
+=============================================================================================================================
+
+
+There is no special syntax for searching and sorting.  However, we'll provide a basic method that searches an array for a value.
+
+Example #1 - searching an array for a particular value
+
+    METHOD searchArray (parameter: myArray[], thingToSearchFor)
+    BEGIN
+         FOR i = 0 to myArray.length
+              IF (myArray[i] == thingToSearchFor) THEN
+                   RETURN TRUE
+              END IF
+         END FOR
+         RETURN FALSE
+    END METHOD
+
+    MAIN
+         CREATE randArray[1000]
+         CREATE found = FALSE
+
+         FOR i = 0 to randArray.length
+              randArray[i] = RAND (1, 5000)
+         END FOR
+         found = searchArray(randArray, 437)
+         IF (found) THEN
+              PRINTLINE ("The number 437 exists in the array")
+         ELSE
+              PRINTLINE ("The number 437 does not existin in the array")
+         END IF
+    END MAIN
+</pre>
+</body>
+</html>
